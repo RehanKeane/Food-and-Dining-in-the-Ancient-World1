@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dining and Food in the Ancient World</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg-parchment-1:#f6ecd9;
+            --bg-parchment-2:#876935;
+            --ink:#3b2b1f;
+            --accent:#6e4219;
+            --terra:#b36a3f;
+            --tile:#db9e3a;
+            --card-edge:rgba(210, 106, 26, 0.14);
+            --sep:#caa77a;
+            --shadow: rgba(140, 84, 28, 0.915);
+        }
+
+        /* Base */
+        html,body{height:100%;margin:0;}
+        body{
+            font-family: "EB Garamond", serif;
+            color:var(--ink);
+            background:
+              radial-gradient(1200px 600px at 10% 10%, rgba(171, 134, 61, 0.842), transparent 10%),
+              linear-gradient(180deg,var(--bg-parchment-1) 0%, var(--bg-parchment-2) 100%),
+              repeating-linear-gradient(135deg, rgba(138, 31, 31, 0.02) 0 2px, transparent 2px 12px);
+            background-blend-mode: overlay, normal, multiply;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.6;
+            padding:2rem 1rem 4rem;
+        }
+
+        /* Container as an atrium / plastered wall panel */
+        .container{
+            max-width:1000px;
+            margin:0 auto;
+            background: linear-gradient(180deg, rgba(255,250,240,0.9), rgba(255,247,235,0.85));
+            border-radius:12px;
+            box-shadow: 0 14px 40px var(--shadow);
+            border:6px solid rgba(150,110,70,0.06);
+            padding:1.25rem;
+            position:relative;
+            overflow:hidden;
+        }
+
+        /* Decorative cornice */
+        .container::before{
+            content:"";
+            position:absolute;
+            left:0;right:0;top:-10px;
+            height:28px;
+            background: linear-gradient(90deg, rgba(160,110,60,0.15) 0%, rgba(160,110,60,0.06) 50%, rgba(160,110,60,0.15) 100%);
+            box-shadow: inset 0 -6px 12px rgba(0,0,0,0.03);
+            border-bottom:1px solid rgba(110,70,40,0.06);
+            transform:skewY(-1.5deg);
+        }
+
+        /* Top bar (like an oaken lintel) */
+        .topbar{
+            display:flex;
+            gap:1rem;
+            align-items:center;
+            justify-content:space-between;
+            padding:0.7rem 1rem;
+            background: linear-gradient(180deg, rgba(95,55,25,0.06), rgba(0,0,0,0.01));
+            border-radius:8px;
+            border:1px solid rgba(60,40,20,0.04);
+            margin-bottom:1rem;
+            align-self:stretch;
+            backdrop-filter: blur(1px);
+        }
+
+        /* Ancient Roman structural additions */
+
+/* ---------------------------
+   Columns (left & right)
+--------------------------- */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: -1; /* behind everything else */
+
+    /* Column base gradient */
+    background: linear-gradient(180deg, #d6c8aa 0%, #bba98a 100%);
+
+    /* Fluting */
+    background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0 2px, transparent 2px 10px),
+        linear-gradient(180deg, #d6c8aa 0%, #bba98a 100%),
+        radial-gradient(ellipse at 50% 18%, rgba(60,60,60,0.9) 0%, rgba(38,38,38,0.9) 40%, rgba(0,0,0,0.15) 60%, transparent 70%), /* torch bracket */
+        linear-gradient(180deg, #8a5334 0%, #6a3a23 60%); /* torch stick */
+
+    background-size:
+        12px 100%, /* fluting */
+        100% 100%, /* column base */
+        24px 12px, /* bracket */
+        8px 44px;  /* stick */
+    
+    background-position:
+        0 0,       /* fluting */
+        0 0,       /* column base */
+        50% 36px,  /* bracket */
+        50% 44px;  /* stick */
+    
+    background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+
+    border-left: 2px solid rgba(175, 32, 32, 0.05);
+    border-right: 2px solid rgba(255,255,255,0.4);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1), 0 0 30px rgba(0,0,0,0.08);
+}
+body::before { left: 0; }
+body::after { right: 0; }
+
+/* ---------------------------
+   Flames (left & right)
+--------------------------- */
+/* Left flame: move further left */
+html::before {
+    content: "";
+    position: fixed;
+    top: 64px;
+    left: 10px;           /* move more to the left */
+    width: 70px;
+    height: 160px;
+    pointer-events: none;
+    z-index: 1000;
+    transform-origin: center bottom;
+    mix-blend-mode: screen;
+    animation: flameFlicker 1.8s infinite ease-in-out;
+    background:
+        radial-gradient(ellipse at 50% 25%,
+            rgba(255, 240, 160, 1) 0%,
+            rgba(255, 190, 60, 0.95) 25%,
+            rgba(255, 120, 30, 0.9) 55%,
+            rgba(255, 60, 10, 0.7) 75%,
+            rgba(255, 30, 0, 0) 95%),
+        radial-gradient(ellipse at 50% 90%,
+            rgba(255, 180, 80, 0.35) 0%,
+            rgba(255, 120, 40, 0.15) 40%,
+            transparent 70%);
+    filter: blur(8px) brightness(1.4) contrast(1.3) saturate(1.2);
+}
+
+/* Right flame: move further right */
+html::after {
+    content: "";
+    position: fixed;
+    top: 64px;
+    right: 10px;          /* move more to the right */
+    width: 70px;
+    height: 160px;
+    pointer-events: none;
+    z-index: 1000;
+    transform-origin: center bottom;
+    mix-blend-mode: screen;
+    animation: flameFlicker 1.8s infinite ease-in-out;
+    background:
+        radial-gradient(ellipse at 50% 25%,
+            rgba(255, 240, 160, 1) 0%,
+            rgba(255, 190, 60, 0.95) 25%,
+            rgba(255, 120, 30, 0.9) 55%,
+            rgba(255, 60, 10, 0.7) 75%,
+            rgba(255, 30, 0, 0) 95%),
+        radial-gradient(ellipse at 50% 90%,
+            rgba(255, 180, 80, 0.35) 0%,
+            rgba(255, 120, 40, 0.15) 40%,
+            transparent 70%);
+    filter: blur(8px) brightness(1.4) contrast(1.3) saturate(1.2);
+}
+
+
+/* ---------------------------
+   Flame flicker animation
+--------------------------- */
+@keyframes flameFlicker {
+    0%   { opacity: 0.8; transform: translateY(0) scaleY(0.8) rotate(0deg); }
+    25%  { opacity: 1;   transform: translateY(-2px) scaleY(0.85) rotate(-2deg); }
+    50%  { opacity: 0.7; transform: translateY(1px) scaleY(0.75) rotate(1.5deg); }
+    75%  { opacity: 0.9; transform: translateY(-1px) scaleY(0.82) rotate(-1deg); }
+    100% { opacity: 0.8; transform: translateY(0) scaleY(0.8) rotate(0deg); }
+}
+
+/* Arched section top (like a wall niche) */
+.page.active {
+  position: relative;
+  overflow: hidden;
+}
+.page.active::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 60px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  background: radial-gradient(circle at center, rgba(160,120,60,0.15), transparent 70%);
+  z-index: 0;
+}
+
+/* Mosaic-style footer tiles */
+.foot {
+  background: repeating-linear-gradient(
+    45deg,
+    #c8b08b 0 10px,
+    #d8c19c 10px 20px
+  );
+  border-top: 3px solid rgba(160,120,60,0.3);
+  color: #3e2d1a;
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.4px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+  padding-top: 1.5rem;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Optional: faint plaster texture overlay */
+.container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
+}
+
+        .brand{
+            font-family: "Cinzel", serif;
+            font-weight:700;
+            letter-spacing:2px;
+            color:var(--terra);
+            text-transform:uppercase;
+            font-size:1.05rem;
+            display:flex;
+            align-items:center;
+            gap:0.6rem;
+        }
+        /* small plaque icon */
+        .brand .plaque{
+            width:36px;height:24px;border-radius:4px;
+            background: linear-gradient(180deg,var(--terra), #8b4b2c);
+            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.08), 0 3px 8px rgba(0,0,0,0.08);
+            display:inline-block;
+            border:2px solid rgba(255,255,255,0.06);
+        }
+
+        nav a{
+            color:var(--ink);
+            text-decoration:none;
+            padding:0.45rem 0.6rem;
+            border-radius:4px;
+            font-size:0.95rem;
+            transition:all 160ms ease;
+            opacity:0.98;
+        }
+        nav a:hover{ background: rgba(110,66,25,0.06); transform:translateY(-2px); }
+        nav a.active{
+            background: rgba(110,66,25,0.12);
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.06);
+            font-weight:700;
+        }
+        
+
+        /* Intro / header area, like a triclinium niche */
+        .intro{
+            padding:1rem;
+            border-radius:8px;
+            background: linear-gradient(180deg, rgba(250,245,230,0.5), rgba(255,255,255,0.35));
+            border:1px solid rgba(120,90,60,0.04);
+            box-shadow: 0 6px 18px rgba(20,10,0,0.03);
+        }
+        .intro h1{
+            margin:0 0 0.25rem 0;
+            font-family: "Cinzel", serif;
+            font-weight:700;
+            font-size:2.2rem;
+            color:var(--accent);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+            letter-spacing:0.6px;
+        }
+        .intro p{ margin:0 0 1rem 0; color:rgba(55,35,20,0.95); }
+
+        /* Cards */
+        .card-row{
+            display:grid;
+            grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+            gap:1rem;
+            margin-top:1rem;
+        }
+        .card{
+            display:block;
+            padding:1rem;
+            border-radius:8px;
+            text-decoration:none;
+            color:var(--ink);
+            background: linear-gradient(180deg,#fffdf6,#fbf1d9);
+            border:1px solid rgba(0,0,0,0.04);
+            border-left:8px solid var(--card-edge);
+            box-shadow: 0 8px 18px rgba(20,10,0,0.04);
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+        .card h3{
+            margin:0 0 0.35rem 0;
+            font-family: "Cinzel", serif;
+            font-size:1.05rem;
+            color:var(--terra);
+        }
+        .card p{ margin:0; color:rgba(55,35,20,0.9); font-size:0.96rem; }
+        .card:hover{ transform:translateY(-6px); box-shadow: 0 22px 40px rgba(20,10,0,0.08); }
+
+        /* Section pages: hidden by default, shown when active */
+        .page{
+            display:none;
+            margin-top:1rem;
+            padding:1rem;
+            border-radius:8px;
+            background: linear-gradient(180deg, rgba(255,254,248,0.95), rgba(255,248,239,0.9));
+            border:1px solid rgba(120,90,60,0.04);
+            box-shadow: 0 8px 26px rgba(20,10,0,0.03);
+        }
+
+    
+        .page.active{ display:block; animation:fadeIn .28s ease both; }
+        @keyframes fadeIn { from {opacity:0; transform:translateY(6px)} to {opacity:1; transform:none} }
+
+        .section-title{
+            display:flex;
+            align-items:baseline;
+            gap:0.8rem;
+            margin:0 0 0.6rem 0;
+        }
+        .section-title h2{
+            margin:0;
+            font-family: "Cinzel", serif;
+            color:var(--terra);
+            font-size:1.45rem;
+            letter-spacing:0.6px;
+        }
+        .sep{
+            height:6px;
+            flex:1;
+            background:linear-gradient(90deg,var(--sep), rgba(255,255,255,0));
+            border-radius:3px;
+            opacity:0.9;
+        }
+
+        /* Subtle decorative footer */
+        .foot{
+            margin-top:1.6rem;
+            padding-top:1rem;
+            border-top:1px dotted rgba(60,40,20,0.06);
+            text-align:center;
+            color:rgba(60,45,32,0.9);
+            font-size:0.95rem;
+        }
+
+        /* Active link highlight by JS / hash */
+        a.nav-link{ cursor:pointer; }
+
+        /* Responsive */
+        @media (max-width:680px){
+            .intro h1{ font-size:1.6rem; }
+            .brand{ font-size:0.95rem; }
+        }
+    </style>
+</head>
+<body>
+    <main class="container" role="main" aria-labelledby="site-title">
+        <header class="topbar" role="banner">
+            <div class="brand" id="site-title">
+                <span class="plaque" aria-hidden="true" style="width:72px;height:72px;border-radius:10px;background: linear-gradient(180deg,var(--terra), #8b4b2c);display:inline-flex;align-items:center;justify-content:center;margin-right:12px;border:2px solid rgba(255,255,255,0.06);box-shadow: inset 0 -2px 0 rgba(0,0,0,0.08), 0 3px 8px rgba(0,0,0,0.08);overflow:visible;position:relative;z-index:0;">
+                    <!-- slightly larger framed portrait, image nudged left so face is visible -->
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:8px;background:#8b4b2c;padding:4px;box-shadow: inset 0 0 0 3px rgba(150,95,50,0.18);">
+                        <img src="images/Caesar.jpg" alt="Portrait of Caesar" style="width:56px;height:56px;object-fit:cover;object-position:30% 50%;display:block;border-radius:6px;border:2px solid var(--terra);"/>
+                    </span>
+                </span>
+                Dining in the Ancient World
+            </div>
+            <nav aria-label="Main">
+                <a class="nav-link active" data-target="intro">Introduction</a>
+                <a class="nav-link" data-target="evidence">Primary Evidence</a>
+                <a class="nav-link" data-target="forum">Blog</a>
+                <a class="nav-link" data-target="gallery">Wall Paintings &amp; Mosaics</a>
+                <a class="nav-link" data-target="quiz">Quiz</a>
+                <a class="nav-link" data-target="bibliography">Bibliography and About Me</a>
+            </nav>
+        </header>
+
+    <!-- Torch images positioned on the left/right columns beneath the flames -->
+    <img src="images/torch.png" alt="" style="position:fixed; left:42px; top:204px; width:56px; height:auto; transform:translateX(-50%); pointer-events:none; z-index:999; filter:drop-shadow(0 6px 6px rgba(0,0,0,0.25));" />
+    <img src="images/torch.png" alt="" style="position:fixed; left:calc(100% - 42px); top:204px; width:56px; height:auto; transform:translateX(-50%) scaleX(-1); pointer-events:none; z-index:999; filter:drop-shadow(0 6px 6px rgba(0,0,0,0.25));" />
+
+
+    <!--INGORE EVERYTHING UP THERE-->
+        <section id="intro" class="page active intro" aria-labelledby="intro-title">
+            <div class="section-title">
+                <h2 id="intro-title">Welcome</h2>
+                <div class="sep" aria-hidden="true"></div>
+            </div>
+            <!--INTRO TEXT HERE-->
+            <p>This website explores dining and food in Ancient Rome, and how it was varied based on social class, gender and power. It shows dining as a nuanced activity that changed greatly depending on the environment. Obviously, everyone is familiar with dining and eating, school kids especially with lunch-room politics, it’s something that everyone can relate to. But what you might think as a ‘mundane’ aspect of ancient life is actually deeply meaningful. </p>
+            <p>It will focus on tackling the generally believed myth in popular culture, that all romans ate reclining in extravagant feasts. I’m sure you’ve all seen these depictions in movies and TV- shows. Through the sub-themes of food and dining etiquette (leisure), and marriage and the household (exploring gender and power), this site will demonstrate that Roman dining and food was incredibly nuanced and played into further societal roles. Dining and food are a complex affair worthy investigation, and an affair that can be reflected in the modern day. </p>
+            <p>I will show you a mix of ancient textual, visual and modern evidence/sources with analysis to deepen your understanding of the ancient world. There will be a: page focusing on this primary evidence, a blog post - forum discussion between two ancient romans discussing dining, an annotated wall paintings and mosaic analysis page, a quiz – where you can test all that you’ve learnt, and a bibliography – for your further reading. </p>
+            <p>Subtheme 1, focusing on food and dining etiquette (leisure), will use textual and visual ancient evidence on food, and food divide between social classes, and dining architecture and material culture. It will show that dining in roman society changed based on your social class, that elite populous and the masses had wildly differing food sources and places to eat. You can also relate this back to the everyday complexities of food and dining in the modern world. </p>
+            <p>Subtheme 2, focusing on marriage and the household, will use textual and visual ancient evidence on gender and power to explore the dining room as a stage for social hierarchy in the Roman World. The evidence showing that reclining on a couch was the performance of the male elite, most women, if present, were often marginalised while enslaved workers made the spectacle possible but were excluded from its benefits. It shows that particularly in elite settings meals were turned into displays of dominance as much as hospitality. Once again something you can relate back to the lunchroom or dinner table politics of your everyday life. </p>
+            <p>Conclusively this website will take you through a journey of dining and food in the Ancient World. It will contest the idea that all Roman feasts were extravagant affairs and show the complex nuances of dining in the Roman World. And hopefully it’ll show you how your dinner relates to those eaten two thousand years ago. </p>
+
+             <!--THIS IS THE BOXES UNDER INTRO INTO EACH THING-->
+            <div class="card-row" aria-hidden="false">
+                <a class="card" data-target="evidence">
+                    <h3>Primary Evidence</h3>
+                    <p>Archaeological Artefacts, Monuments and Ancient Literary Evidence.</p>
+                </a>
+                <a class="card" data-target="forum">
+                    <h3>Blog Post- Forum Conversation</h3>
+                    <p>A stylized exchange between two diners inspired by ancient sources.</p>
+                </a>
+                <a class="card" data-target="gallery">
+                    <h3>Wall Paintings &amp; Mosaics</h3>
+                    <p>Annotated images showing dining scenes and motifs.</p>
+                </a>
+                <a class="card" data-target="quiz">
+                    <h3>Quiz</h3>
+                    <p>Ten questions about ancient dining practices.</p>
+                </a>
+            </div>
+        </section>
+      
+        <!--THIS IS YOUR PRIMARY EVIDENCE-->
+        <section id="evidence" class="page" aria-labelledby="evidence-title">
+            <div class="section-title">
+                <h2 id="evidence-title">Primary Evidence</h2>
+                <div class="sep" aria-hidden="true"></div>
+            </div>
+            <!---THIS IS INFO ABOVE IMAGES-->
+            <p>Food and dining in the Roman world were not merely acts of sustenance but performances of status, morality and identity. The material and literary evidence together shows a society where what one ate, and how, expressed one’s place within a rigid social hierarchy. </p>
+<figure style="margin:0;padding:0.6rem;background:linear-gradient(180deg,#fffdf6,#fbf1d9);border-radius:8px;border:1px solid rgba(0,0,0,0.04);">
+                    <figure style="margin:0;text-align:center;">
+                        <img src="images/bread.png" alt="bread" style="height:120px;width:auto;display:inline-block;margin:0 auto;object-fit:contain;border-radius:6px;" />
+                        <figcaption style="font-size:0.9rem;margin-top:0.4rem;color:rgba(60,45,32,0.9);">Carbonised loaves of bread from Herculaneum and Pompeii</figcaption>
+                    </figure>
+
+                    <figure style="margin:0;text-align:center;">
+                        <img src="images/table.png" alt="Table" style="height:120px;width:auto;display:inline-block;margin:0 auto;object-fit:contain;border-radius:6px;" />
+                        <figcaption style="font-size:0.9rem;margin-top:0.4rem;color:rgba(60,45,32,0.9);">Counters from a “fast food restaurant”, Regio V, Pompeii, 1st cent. CE</figcaption>
+                    </figure>
+                <!--THIS IS STUFF UNDER THE IMAGES-->
+            <article>
+                <h3 style="font-family:Cinzel;color:var(--terra);margin-top:0.6rem;">Martial, to Rufus (Epigrams 3.82)</h3>
+                <p>“He who would consent to be the guest of Zoilus, would not hesitate to sup with the strumpets of the Summoenium, and drink, without a blush, from the broken pitcher of Leda. This, I contend, would be both easier and more decent. Clothed in an effeminate kind of robe, he lies upon a couch which he wholly covers, and, propped up on purple and silk cushions, thrusts aside his guests with his elbows on this side and that. At hand stands a minion, who hands to his master, ready to vomit, red feathers  and toothpicks of lentisc wood; while, if he is oppressed by the heat, a concubine, reclining by his side, waves upon him a pleasant coolness with a green fan; and a young slave scares away the flies with a rod of myrtle, A softener, with nimble art, strokes his whole body, and passes her skilled hand over all his limbs, The signal of snapping his fingers is watched by an eunuch, who presents him with the vessel which his copious draughts render indispensable. Meanwhile Zoilus himself, leaning backwards to the crowd at his feet, among the puppies who are licking up the giblets of geese, divides among his athletes the neck of a wild-boar, or bestows upon his favourite the thigh of a turtle-dove; and while to us is offered wine from Ligurian rocks, or such as has been ripened in the smoke of Marseilles, he hands to his creatures Opimian nectar in crystalline and myrrhine vases; and, while he himself is drenched with essences from the stores of Cosmus, he is not ashamed to divide amongst us in a little gilt shell, unguents such as only the lowest women use. Finally, overcome by many draughts from his large cups, he falls snoring asleep. We sit at the table, and, ordered to keep silence while he is grunting, drink each other's healths by signs. Such is the insolence which we have to endure from this presuming Malchion; nor do we ask to be avenged, Rufus. He has a filthy tongue.”</p>
+            </article>
+
+            <article>
+                <h3 style="font-family:Cinzel;color:var(--terra);">Cicero, Cat. 2.10</h3>
+                <p>“But if his companions follow him,—if the infamous herd of desperate men depart from the city, O happy shall we be, fortunate will be the republic, illustrious will be the renown of my consulship. For theirs is no ordinary insolence,—no common and endurable audacity. They think of nothing but slaughter, conflagration, and rapine. They have dissipated their patrimonies, they have squandered their fortunes. Money has long failed them, and now credit begins to fail; but the same desires remain which they had in their time of abundance. But if in their drinking and gambling parties they were content with feasts and harlots, they would be in a hopeless state indeed; but yet they might be endured. But who can bear this,—that indolent men should plot against the bravest,—drunkards against the sober,—men asleep against men awake,—men lying at feasts, embracing abandoned women, languid with wine, crammed with food, crowned with chaplets, reeking with ointments, worn out with lust, belch out in their discourse the murder of all good men, and the conflagration of the city?”</p>
+            </article>
+            <h3 style="font-family:Cinzel;color:var(--terra);">Analysis</h3>
+            <p>The charred loaves of bread found in Pompeii and the Herculaneum capture the ordinariness of daily Roman sustenance while also showing the social inequality embedded in food production. We’ve all had bread before; it’s not a fancy meal. The loaves, baked in communal ovens, represent both domestic routine and the labour of the household in the ancient world. They show commercial regulation and social order even in mundane acts like baking, illustrating how Roman households extended into networks of production and dependence. This contrasts with the common myth of elite banquets, where luxury foods displayed wealth and reinforced social stratification. </p>
+            <p>Another example showing the nuanced dining architecture of Rome are the painted “fast food” counters from Pompeii, they offer a public counterpart to the domestic meal. These street food shops catered to the urban poor and masses who lacked kitchens, underscoring class divisions in dining practice. The vibrant frescoes celebrate food as a spectacle, yet they also reflect the commodification of eating in a densely populated city. Dining here was pragmatic, not performative, it’s a parallel to modern fast food, you go to McDonalds not because you want a delicious 5-star meal but because its easy, available and edible. </p>
+            <p>Martial in an address to Rufus, exposes the moral tensions of elite dining (Epigrams, 3.82). He contrasts the indulgence of the host with the exhaustion of the enslaved servants, turning the dinner table into a microcosm or metaphor of Roman inequality. His satire highlights not only the cruelty but also the hypocrisy: the refinement of the meal depending on the suffering of others. The banquet becomes a moral test, where urbanitas (refined behaviours) mask moral decay. His displays the other side (elite side) of Roman dining, showing the nuances and complexity of it as an event. </p>
+            <p>Cicero, in his Catilinarian Orations, similarly associates moral corruption with disordered luxury and unrestrained appetites, condemning Catiline’s followers as gluttonous and effeminate (unmanly, an insult back then) (Cat.2.10). His speech revealing food and dining and moral virtue to be intertwined, particularly within the household and the management of slaves and wives. Moderation in dining mirrored moderation in governance and marriage; indulgence signalled political and domestic disorder. It once again shows the deeper meaning behind the simple act of dining. I bet you didn’t think dinner was this complicated. </p>
+            <p>It’s a thing that we see in the modern world too, today’s food culture, driven by consumption, labour exploitation and social signalling, echoes Rome’s uneasy relationship between luxury and morality. Whether through fine dining or fast food, the act of eating continues to expose the nuances and complexities that structure society. Think about that next time you’ve got to dress up for a fancy dinner, or get a big mac. </p>
+        </section>
+  
+        <!--THIS IS THE FORUM-->
+        <section id="forum" class="page" aria-labelledby="forum-title">
+            <div class="section-title">
+                <h2 id="forum-title">Forum Thread: “On Dining, Decorum, and Domestic Affairs”</h2>
+                <div class="sep" aria-hidden="true"></div>
+            </div>
+            <p>This stylized dialogue recreates a short "online" exchange between two Romans discussing their thoughts on dining. </p>
+
+            <div style="margin-top:0.6rem;">
+                <p><strong>GaiusLoverOfLuxury:</strong> "Fellow citizens, I’ve just returned from a banquet that would shame the gods themselves! Silver platters, flamingo tongues, honeyed dormice, a true Apician fare (Apicius, 2009). One cannot live on lentils and virtue alone, as Horace’s dull Nasidienus insists (Horace, Satires.2.8.42–55). I say, a fine dinner 'is' a measure of civilisation. "</p>
+                <p><strong>ModerateMarciaDomus:</strong> "Gaius, your tongue drips with garum and folly. Have you learned nothing from Juvenal? He praises the simple meal, bread and herbs over vulgar opulence (Juvenal, Satires.11.77–88). Your kind forgets the hands that serve those dishes – the slaves sweating in the kitchen, the boys standing sleepless by the couch. "</p>
+                 <p><strong>ModerateMarciaDomus:</strong> "I manage a household myself, and the best dinner is one where peace reigns. Even Ovid’s Philemon and Baucis showed greater piety with their cabbage broth than your gilded banquets ever could (Ovid, Met.8.630-678)"</p>
+                <p><strong>GaiusLoverOfLuxury:</strong> "Ah, Marcia, but is it not natural to enjoy the fruits of fortune? As Apicius wrote in his 'Cookery and Dining in Imperial Rome', one must 'know' how to dine (Apicius, 2009). It’s an art – the sauces, the order of the courses, the reclining, the conversation. Even Trimalchio in Petronius’ 'Satyricon' knew that spectacle delights the spirit (Petron. Sat. 35–39.5). "</p>
+                 <p><strong>ModerateMarciaDomus:</strong> "Trimalchio? That buffoon? His “art” of dining was gluttony dressed in Gold! (Petron. Sat. 35–39.5). A true Roman household shows moderation – 'temperantia'. The master should dine with dignity, not drown in luxury while his slaves lick crumbs from the floor. The table reveals the soul of the house, the home and the state. "</p>
+                <p><strong>GaiusLoverOfLuxury:</strong> "You sound like Valerius Maximus, ever moralizing! Yes, Jupiter’s festival feasts celebrated abundance – but they also united rich and poor, god and man (Val. Max. 2.1.2.). Jupiter dines reclined on his couch, but Minerva and Juno are also invited to sit; Perhaps there’s room for both your humble cabbage and my flamingo tongue. "</p>
+                 <p><strong>ModerateMarciaDomus:</strong> "Then Let us agree: the Roman table reflects all Rome, its slaves and senators, its piety and pride. Whether in a smoky kitchen or a marble triclinium, dining binds us in custom and contradiction alike. "</p>
+                <p><strong>Forum Moderator(anonymous):</strong> "Ah, the eternal feast of debate – some things never change. Even today, our tables still mirror our morals."</p>
+            </div>
+        </section>
+
+        <!--THIS IS THE GALLERY IMAGES-->
+        <section id="gallery" class="page" aria-labelledby="gallery-title">
+            <div class="section-title">
+                <h2 id="gallery-title">Wall Paintings &amp; Mosaics</h2>
+                <div class="sep" aria-hidden="true"></div>
+            </div>
+            <p>The visual record of Roman dining – from the frescoes of Pompeii to mosaics from North Africa – reveal a world far more nuanced than the familiar image of elite Roman’s reclining in luxury. Together these four annotated scenes illustrate the range of experiences and meanings embedded in the act of dining. </p>
+           <!--REPLACE TORCH IMAGES AND DESCRIPTIONS-->
+            <div style="display:grid;grid-template-columns:1fr;gap:1.2rem;margin-top:1rem;">
+               <figure style="margin:0;padding:0.8rem;background:linear-gradient(180deg,#fffdf6,#fbf1d9);border-radius:8px;border:1px solid rgba(0,0,0,0.04);">
+                    <img src="images/Banquet.png" alt="Scene depicting guests at a banquet" style="height:300px;width:auto;display:block;margin:0 auto;border-radius:6px;object-fit:contain;" />
+                    <figcaption style="font-size:0.9rem;margin-top:0.6rem;color:rgba(60,45,32,0.9);"><strong>Banquet Scene:</strong> Wall fresco, 40-79 CE, Pompeii, House of the Triclinium. The House of the Triclinium fresco, with its convivial group and elegant atmosphere, captures the social warmth and artistry of communal dining rather than pure ostentation or indulgence. It also shows hierarchical positioning, the host occupying the central couch whilst guests recline on either side, demonstrating social status through spatial arrangement.</figcaption>
+                </figure>
+                <figure style="margin:0;padding:0.8rem;background:linear-gradient(180deg,#fffdf6,#fbf1d9);border-radius:8px;border:1px solid rgba(0,0,0,0.04);">
+                    <img src="images/Carrying.png" alt="Mosaic depicting slave carrying food" style="height:300px;width:auto;display:block;margin:0 auto;border-radius:6px;object-fit:contain;" />
+                    <figcaption style="font-size:0.9rem;margin-top:0.6rem;color:rgba(60,45,32,0.9);"><strong>Labour & Service:</strong> Marble mosaic, 2nd century CE, Roman Carthage. The Carthage mosaic shows the labour that sustained Roman hospitality. The depicted slave, delicately balancing food on a tray, embodies the infrastructure of servitude behind every elegant feast. His poised stance reflects the discipline and grace expected of domestic slaves, who were trained to uphold their master’s dignity through their silence and precision. Dining etiquette, therefore, was not only about how the elite behaved but also about how enslaved peoples were manoeuvred within the household’s moral and aesthetic order.
+               <figure style="margin:0;padding:0.8rem;background:linear-gradient(180deg,#fffdf6,#fbf1d9);border-radius:8px;border:1px solid rgba(0,0,0,0.04);">
+                    <img src="images/Dinner.png" alt="Dining panel showing intimate dinner scene" style="height:300px;width:auto;display:block;margin:0 auto;border-radius:6px;object-fit:contain;" />
+                    <figcaption style="font-size:0.9rem;margin-top:0.6rem;color:rgba(60,45,32,0.9);"><strong>Intimate Dining:</strong> Fresco panel (P6), Casa dei Casti Amanti (IX.12.6–7), Pompeii. In the Casa dei Casti Amanti fresco, diners recline on couches in a refined yet intimate setting. The careful rendering of tableware and gesture suggests civility and restraint rather than indulgence. These details remind us that elite dining was as much about demonstrating decorum, self-control, balance and hierarchy, as it was about pleasure. The household meal functioning as a microcosm of Roman society: ordered, hierarchical, and gendered, yet bound by shared ritual.</figcaption>
+                </figure>
+          <figure style="margin:0;padding:0.8rem;background:linear-gradient(180deg,#fffdf6,#fbf1d9);border-radius:8px;border:1px solid rgba(0,0,0,0.04);">
+                    <img src="images/Female.png" alt="All-female dinner party scene" style="height:300px;width:auto;display:block;margin:0 auto;border-radius:6px;object-fit:contain;" />
+                    <figcaption style="font-size:0.9rem;margin-top:0.6rem;color:rgba(60,45,32,0.9);"><strong>Gender & Dining:</strong> The all-female dinner party fresco disrupts expectations entirely. By portraying women reclining and drinking without male supervision, it complicates the conventional association between banqueting and male sociability. This image displays toward spaces of female autonomy and friendship, rarely acknowledged in Roman literature. This humanisation of the Roman dining scene is echoed in some literary texts such as Plautus’s ‘In Amphritruo’ where a rare moment of intimacy is staged (Plaut. Am. 804, cf. 735). It shows a couple reclining together, a gesture both domestic and dignified. Reclining during meals was a privilege usually reserved for elite men, yet Alcmena’s participation marks her as a moral equal within marriage, showing the Roman dining scene could also be a site of affection, negotiation, and relationships.</figcaption>
+                </figure>
+            </div>
+
+            <div style="margin-top:1.2rem;padding:1rem;background:linear-gradient(180deg,rgba(250,245,230,0.5),rgba(255,255,255,0.35));border:1px solid rgba(120,90,60,0.04);border-radius:8px;box-shadow:0 6px 18px rgba(20,10,0,0.03);">
+                <h3 style="font-family:Cinzel;color:var(--terra);margin-top:0;margin-bottom:0.5rem;">Key Takeaways</h3>
+                <p style="margin:0;font-size:0.95rem;color:rgba(55,35,20,0.9);">Taken together, these artworks dismantle the myth of a universal extravagant Roman dining experience. Most Roman dining was domestic, modest, and deeply moralised, a performance of identity rather than that of excess. It was a place where power, gender and class were continuously negotiated and reinforced. In modern society, dining still performs similar functions: family dinners, school lunches, and social gatherings remain stages for negotiating relationships, hierarchy and belonging. The Roman table, whether adorned with Peacock or humble cabbage, reminds us that eating together has always been a mirror of humanity’s shared need for connection. </p>
+            </div>
+        </section>
+     
+        <!--THIS IS BIBLIOGRAPHY -->
+    <section id="bibliography" class="page" aria-labelledby="bib-title">
+        <div class="section-title">
+            <h2 id="bib-title">Bibliography & About Me</h2>
+            <div class="sep" aria-hidden="true"></div>
+        </div>
+        
+        <h3 style="font-family:Cinzel;color:var(--terra);margin-top:1rem;">About Me</h3>
+        <p>I’m Rehan Keane a student at the University of Queensland completing a bachelor’s degree in Advanced Humanities with a major in Ancient History. I hope to use my knowledge to show that learning about the ancient world can be engaging, fun and meaningful, and to show how it can teach us about the present. I want to show that it is not simply the dull memorisation of facts, but the engaging analysis and learning about life in the ancient world.</p>
+        
+        <h3 style="font-family:Cinzel;color:var(--terra);margin-top:1rem;">Bibliography</h3>
+    <!--WRITE IT HERE-->
+    <p>Apicius. (trans. Vehling, J.D). 2009. Cookery and Dining in Imperial Rome. Project Gutenberg.</p>
+    <p>Beacham, R.C. and Denard, H. 2023. ‘Triclinium Theatricality’, in Living Theatre in the Ancient Roman House: Theatricalism in the Domestic Sphere, Cambridge: Cambridge University Press, 426–483.</p>
+    <p>Cicero. (trans. Stuart, G). 1905. Cicero’s four orations against Catiline. Hinds, Noble & Eldredge. </p>
+    <p>De Angelis, F. et al. 2020. Food at the heart of the Empire: dietary reconstruction for Imperial Rome inhabitants. Archaeological and Anthropological Sciences, 12(10), Article 244. https://doi.org/10.1007/s12520-020-01194-z </p>
+    <p>Donohue, J. 2015. ‘Roman Dining’ in J. Wilkins, and R. Nadeau, (ed) A Companion to Food in the Ancient World, Newark: Wiley, 253-264.</p>
+    <p>Garnsey, Peter. 1999. ‘You Are With Whom You Eat,’ in Food and Society in Classical Antiquity, Cambridge and New York: Cambridge University Press.</p>
+    <p>Horace. (trans. Alexander, S). 2016. The Complete Odes and Satires of Horace (S. Alexander, Ed.; Vol. 126). Princeton University Press. https://doi.org/10.1515/9781400884117 </p>
+    <p>Hudson, N. F. 2010. ‘Changing Places: The Archaeology of the Roman “Convivium”,’ American Journal of Archaeology 114.4: 663–695.</p>
+    <p>Juvenal. (trans. Anthon C). 1857. The Satires of Juvenal and Persius / with English notes, critical and explanatory, from the best commentators, by Charles Anthon. Harper & Brothers. </p>
+    <p>Martial. (trans. Francis, A.L. and Tatum, H.F). 1924. Martial’s epigrams. Cambridge University Press.</p>
+    <p>Murphy, C. 2017. Pompeii, a fully urban society: charting diachronic social and economic changes in the environmental evidence.</p>
+    <p>Ovid (trans. Fantham, E). 2004. Ovid’s Metamorphoses. Oxford University Press.</p>
+    <p>Petronius. (trans. Warmington, E. H).1913. Satyricon (M. Heseltine & W. H. D. Rouse, Trans.; New edition / revised by E.H. Warmington.). Harvard University Press.  </p>
+    <p>Plautus. (trans. Echard, L.). 1716. Plautus’s comedies, amphitryon, epidicus, and rudens, made English With critical remarks upon each play. By Laurence Echard M.A (The second edition corrected.). Printed for Timothy Child at the White-Hart in St. Paul’s Church-yard, and William Taylor at the Ship in Pater-noster-Row. </p>
+    <p>Roller, M. B. 2017. Dining Posture in Ancient Rome: Bodies, Values, and Status, United States: Princeton University Press.</p>
+    <p>Valerius Maximus. (trans. Wardle, D). 2016. Valerius Maximus: memorable deeds and sayings. Book 1. Oxford University Pres. </p>
+        <h3 style="font-family:Cinzel;color:var(--terra);margin-top:1rem;">Images List</h3>
+    <p>Mosaic depicting salve carrying food, marble, 2nd century CE, Roman Carthage, North Africa </p>
+    <p>Dining panel (P6), casa dei Casti Amanti (IX.12.6–7), Pompeii, east wall of triclinium. Detail. Author photo </p>
+    <p>All-female dinner party, wall fresco, 40-79 CE, Pompeii, Naples Archaeological Museum, inv. 9016 </p>
+    <p>Scene depicting guests at a banquet, wall fresco, 40-79 CE, Pompeii, House of the Triclinium, Naples Archaeological Museum, inv. 120031.</p>
+    <p>Counters from a “fast food restaurant”, Regio V, Pompeii, 1st cent. CE</p>
+    <p>Carbonised loaves of bread from Herculaneum and Pompeii.</p>
+    
+
+</section>
+
+        <!--THIS IS THE QUIZ-->
+        <section id="quiz" class="page" aria-labelledby="quiz-title">
+            <div class="section-title">
+            <h2 id="quiz-title">Ancient Dining Quiz</h2>
+            <div class="sep" aria-hidden="true"></div>
+            </div>
+            <p>Ten short questions. Select one answer per question and press "Submit" to see your score.</p>
+
+            <style>
+                /* quiz button selected state IGNORE THIS */
+                #quiz .quiz-btn {
+                    background: linear-gradient(180deg,#fff,#f5f0e6);
+                    border:1px solid rgba(0,0,0,0.08);
+                    padding:0.35rem 0.6rem;
+                    border-radius:6px;
+                    cursor:pointer;
+                }
+                #quiz .quiz-btn.selected {
+                    background: linear-gradient(180deg, rgba(238,220,188,0.95), rgba(245,235,215,0.95));
+                    border-color: rgba(179,106,63,0.85);
+                    box-shadow: 0 6px 14px rgba(110,66,25,0.12);
+                    transform: translateY(-2px);
+                }
+                #quiz .quiz-btn:disabled {
+                    opacity: 0.6;
+                    cursor: default;
+                }
+            </style>
+        <!--HERE ARE QUESTIONS-->
+            <div style="margin-top:0.6rem;" id="quiz">
+            <div class="quiz-question" data-q="1" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">1) What do the charred loaves of bread from Pompeii primarily reveal about Roman society?</label>
+                <div>
+                <button type="button" class="quiz-btn" data-question="1" data-correct="false" style="margin-right:0.4rem;">They were bad bakers</button>
+                <button type="button" class="quiz-btn" data-question="1" data-correct="true" style="margin-right:0.4rem;">they had common food production</button>
+                <button type="button" class="quiz-btn" data-question="1" data-correct="false">they had excess grain</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="2" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">2) What animal was painted onto the ‘thermopolium’ in Pompeii? </label>
+                <div>
+                <button type="button" class="quiz-btn" data-question="2" data-correct="false" style="margin-right:0.4rem;">Lion</button>
+                <button type="button" class="quiz-btn" data-question="2" data-correct="true" style="margin-right:0.4rem;">Rooster</button>
+                <button type="button" class="quiz-btn" data-question="2" data-correct="false">Fish</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="3" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">3) Cicero’s ‘Catilinarian Orations’ associates excessive dining with:</label>
+                <div>
+                <button type="button" class="quiz-btn" data-question="3" data-correct="true" style="margin-right:0.4rem;">Moral corruption and social decay</button>
+                <button type="button" class="quiz-btn" data-question="3" data-correct="false" style="margin-right:0.4rem;">Military training</button>
+                <button type="button" class="quiz-btn" data-question="3" data-correct="false">Political loyalty</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="4" style="margin-bottom:0.8rem;"></div>
+                <label style="display:block;margin-bottom:0.4rem;">4) In ‘Ovid’s Metamorphoses’ Philemon and Baucis’ humble meal symbolizes:</label>
+                <div>
+                <button type="button" class="quiz-btn" data-question="4" data-correct="true" style="margin-right:0.4rem;">Virtue, piety, and generosity over luxury</button>
+                <button type="button" class="quiz-btn" data-question="4" data-correct="false" style="margin-right:0.4rem;">Moral Decline</button>
+                <button type="button" class="quiz-btn" data-question="4" data-correct="false">An empty stomach</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="5" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">5) Which of these is a real meal from Apicius’s ‘Cookery and Dining’ in Imperial Rome?
+                <button type="button" class="quiz-btn" data-question="5" data-correct="true" style="margin-right:0.4rem;">Flamingo Tongues</button>
+                <button type="button" class="quiz-btn" data-question="5" data-correct="false" style="margin-right:0.4rem;">Peacock Drumsticks</button>
+                <button type="button" class="quiz-btn" data-question="5" data-correct="false">Emu Toast</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="6" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">6) What does the virtue of ‘temperantia’ mean? 
+                <button type="button" class="quiz-btn" data-question="6" data-correct="true" style="margin-right:0.4rem;">Moderation and self-control</button>
+                <button type="button" class="quiz-btn" data-question="6" data-correct="false" style="margin-right:0.4rem;">remaining cool on a hot day</button>
+                <button type="button" class="quiz-btn" data-question="6" data-correct="false">letting go of anger</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="7" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">7) The all-female dinner party fresco from Pompeii challenges which common assumption?</label>
+                <div>
+                <button type="button" class="quiz-btn" data-question="7" data-correct="false" style="margin-right:0.4rem;">That women had to sew</button>
+                <button type="button" class="quiz-btn" data-question="7" data-correct="true" style="margin-right:0.4rem;">That banqueting was an exclusively male activity</button>
+                <button type="button" class="quiz-btn" data-question="7" data-correct="false">That women could not vote</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="8" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">8)  In The House of the Triclinium fresco what colour toga is the host wearing?</label>
+                <div>
+                <button type="button" class="quiz-btn" data-question="8" data-correct="true" style="margin-right:0.4rem;">Gold and Purple</button>
+                <button type="button" class="quiz-btn" data-question="8" data-correct="false" style="margin-right:0.4rem;">Green and Brown</button>
+                <button type="button" class="quiz-btn" data-question="8" data-correct="false">White and Red</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="9" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">9) What does the Carthage mosaic of a slave carrying food emphasize?</label>
+                <div>
+                <button type="button" class="quiz-btn" data-question="9" data-correct="true" style="margin-right:0.4rem;">The Invisible labour maintaining elite refinement</button>
+                <button type="button" class="quiz-btn" data-question="9" data-correct="false" style="margin-right:0.4rem;">A way to become a freedman</button>
+                <button type="button" class="quiz-btn" data-question="9" data-correct="false">Equality between slaves and citizens</button>
+                </div>
+            </div>
+
+            <div class="quiz-question" data-q="10" style="margin-bottom:0.8rem;">
+                <label style="display:block;margin-bottom:0.4rem;">10) Finally, Dining in the Ancient World was:</label>
+                <div>
+                <button type="button" class="quiz-btn" data-question="10" data-correct="true" style="margin-right:0.4rem;">A nuanced event, which changed based on multiple factors</button>
+                <button type="button" class="quiz-btn" data-question="10" data-correct="false" style="margin-right:0.4rem;">Always a giant exhorbitant affair</button>
+                <button type="button" class="quiz-btn" data-question="10" data-correct="false">Not useful to learn about</button>
+                </div>
+            </div>
+
+            <div style="margin-top:0.8rem;">
+                <button id="quiz-submit" style="padding:0.5rem 0.8rem;border-radius:6px;border:1px solid rgba(0,0,0,0.08);background:linear-gradient(180deg,#fff,#f5f0e6);cursor:pointer;">Submit Quiz</button>
+                <span id="quiz-score" style="margin-left:1rem;color:var(--terra);font-weight:700;"></span>
+                <div id="quiz-feedback" style="margin-top:0.6rem;color:var(--terra);font-weight:700;"></div>
+            </div>
+
+            <script>
+            (function(){
+                const submit = document.getElementById('quiz-submit');
+
+                function ensureResultContainer(qEl){
+                    let r = qEl.querySelector('.quiz-result');
+                    if(!r){
+                        r = document.createElement('div');
+                        r.className = 'quiz-result';
+                        r.style.marginTop = '0.5rem';
+                        r.style.fontWeight = '600';
+                        qEl.appendChild(r);
+                    }
+                    return r;
+                }
+
+                submit.addEventListener('click', function(){
+                    // mark each question right/wrong and reveal correct answer
+                    for(let i=1;i<=10;i++){
+                        const qEl = document.querySelector('.quiz-question[data-q="'+i+'"]');
+                        if(!qEl) continue;
+                        const selected = qEl.querySelector('.quiz-btn[data-selected="true"]');
+                        const correctBtn = qEl.querySelector('.quiz-btn[data-correct="true"]');
+                        const resultEl = ensureResultContainer(qEl);
+
+                        // reset any previous inline highlights
+                        qEl.querySelectorAll('.quiz-btn').forEach(b=>{
+                            b.style.outline = '';
+                            b.style.boxShadow = '';
+                        });
+
+                        if(!selected){
+                            resultEl.textContent = 'No answer selected. Correct: ' + (correctBtn ? correctBtn.textContent.trim() : '—');
+                            resultEl.style.color = '#c67b00';
+                            if(correctBtn){
+                                correctBtn.style.outline = '2px solid #2a8f2a';
+                                correctBtn.style.boxShadow = '0 4px 10px rgba(42,143,42,0.08)';
+                            }
+                        } else if(selected.dataset.correct === 'true'){
+                            resultEl.textContent = 'Correct';
+                            resultEl.style.color = '#2a8f2a';
+                            selected.style.outline = '2px solid #2a8f2a';
+                            selected.style.boxShadow = '0 6px 14px rgba(42,143,42,0.12)';
+                        } else {
+                            resultEl.textContent = 'Incorrect. Correct: ' + (correctBtn ? correctBtn.textContent.trim() : '—');
+                            resultEl.style.color = '#c0392b';
+                            selected.style.outline = '2px solid #c0392b';
+                            selected.style.boxShadow = '0 6px 14px rgba(192,57,43,0.08)';
+                            if(correctBtn){
+                                correctBtn.style.outline = '2px solid #2a8f2a';
+                                correctBtn.style.boxShadow = '0 4px 10px rgba(42,143,42,0.08)';
+                            }
+                        }
+                    }
+
+                    // (optional) move focus to score so keyboard users notice results
+                    const scoreEl = document.getElementById('quiz-score');
+                    if(scoreEl) scoreEl.focus?.();
+                });
+            })();
+            </script>
+
+            <!--IGNORE EVERYTHING UNDER HERE-->
+            <script>
+            (function(){
+                // mark selected answer per question and apply visual highlight
+                const buttons = document.querySelectorAll('#quiz .quiz-btn');
+                buttons.forEach(btn=>{
+                btn.addEventListener('click', ()=>{
+                    const q = btn.dataset.question;
+                    // remove selection visuals from siblings
+                    document.querySelectorAll('#quiz .quiz-btn[data-question="'+q+'"]').forEach(b=>{
+                        b.dataset.selected='false';
+                        b.classList.remove('selected');
+                        b.setAttribute('aria-pressed','false');
+                    });
+                    // mark this one selected
+                    btn.dataset.selected = 'true';
+                    btn.classList.add('selected');
+                    btn.setAttribute('aria-pressed','true');
+                });
+                });
+
+                // submit handler computes score out of 10
+                const submit = document.getElementById('quiz-submit');
+                const scoreEl = document.getElementById('quiz-score');
+                const feedbackEl = document.getElementById('quiz-feedback');
+
+                submit.addEventListener('click', function(){
+                let score = 0;
+                for(let i=1;i<=10;i++){
+                    const sel = document.querySelector('#quiz .quiz-btn[data-question="'+i+'"][data-selected="true"]');
+                    if(sel && sel.dataset.correct === 'true') score++;
+                }
+                scoreEl.textContent = 'Score: ' + score + '/10';
+                feedbackEl.textContent = '';
+                // disable further changes after submission
+                document.querySelectorAll('#quiz .quiz-btn').forEach(b=> b.disabled = true);
+                submit.disabled = true;
+                });
+            })();
+            </script>
+        </section>
+
+
+    <script>
+        // Simple SPA behaviour: show sections in-page, update active nav
+        (function(){
+            const links = document.querySelectorAll('.nav-link, .card');
+            const pages = document.querySelectorAll('.page');
+            const nav = document.querySelectorAll('nav .nav-link');
+
+            function show(id){
+                pages.forEach(p=> p.id === id ? p.classList.add('active') : p.classList.remove('active'));
+                // update nav visual state
+                nav.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+                // move focus to top of shown section
+                const el = document.getElementById(id);
+                if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+                // update URL hash without page jump
+                history.replaceState(null,'', '#'+id);
+            }
+
+            // init from hash
+            const start = location.hash ? location.hash.slice(1) : 'intro';
+            show(start);
+
+            // click handling
+            links.forEach(link => {
+                link.addEventListener('click', e => {
+                    const target = link.dataset.target;
+                    if(!target) return;
+                    e.preventDefault();
+                    show(target);
+                });
+            });
+
+            // keyboard: allow link keys (Enter)
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape'){ show('intro'); }
+            });
+
+        })();
+    </script>
+</body>
+</html></figure></div>
